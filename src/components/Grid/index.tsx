@@ -16,8 +16,6 @@ export default function FullWidthGrid() {
           }}
         >
           <Map
-            width="100%"
-            height="97vh"
             defaultState={{
               center: [55.75, 37.57],
               zoom: 9,
@@ -34,8 +32,8 @@ export default function FullWidthGrid() {
           </Map>
         </YMaps>
       </Grid>
-      <Grid item xs={12} sm={4}>
-        <Sidebar/>
+      <Grid item xs={4} sm={4}>
+        <Sidebar />
       </Grid>
     </Grid>
   );

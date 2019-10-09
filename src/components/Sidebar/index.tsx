@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     gridList: {
       width: "100%",
       height: "98vh",
-      transform: "translateZ(0)"
+      // padding: 5,
     }
   })
 );

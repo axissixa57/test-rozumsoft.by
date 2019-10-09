@@ -10,9 +10,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
       width: "100%",
-      marginBottom: 15,
+      margin: theme.spacing(0, 0, 2, 0),
       "&:last-child": {
-        marginBottom: 0
+        marginBottom: 1
       }
     }
   })
@@ -24,13 +24,6 @@ const CardItem = () => {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Lizard
