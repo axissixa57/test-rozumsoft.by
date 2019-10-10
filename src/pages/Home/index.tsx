@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 
-import { CardItem } from "./components";
-import { locationActions } from "./redux/actions";
-import { getLocations } from "./redux/reselects/locations";
+import { CardItem } from "../../components";
+import { locationActions } from "../../redux/actions";
+import { getLocations } from "../../redux/reselects/locations";
+
+interface Props {
+  items: any[],
+  currentItem: any,
+  setCurrentItem: any,
+  fetchLocationData: any
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,10 +51,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const App = ({ items, currentItem, setCurrentItem, fetchLocationData }) => {
+const Home: React.FunctionComponent<Props> = ({ items, currentItem, setCurrentItem, fetchLocationData }) => {
   const classes = useStyles();
 
   useEffect(() => {
+    fetchLocationData();
+    
     const id = setInterval(() => {
       fetchLocationData();
     }, 3000);
@@ -103,10 +112,10 @@ const App = ({ items, currentItem, setCurrentItem, fetchLocationData }) => {
   );
 };
 
-export default connect(
-  ({ locations }) => ({
-    items: getLocations(locations.items),
-    currentItem: locations.currentItem
+export default connect<any>(
+  (state:any) => ({
+    items: getLocations(state.locations.items),
+    currentItem: state.locations.currentItem
   }),
   locationActions
-)(App);
+)(Home);

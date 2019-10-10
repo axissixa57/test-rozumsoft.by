@@ -1,11 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Route, Redirect, Switch } from "react-router-dom";
 
-import { Grid } from "./components";
+import { Auth, Home } from "./pages";
 
-const App = () => {
+const App = (props: any) => {
   return (
-    <div style={{ padding: "10px" }}>
-      <Grid />
+    <div className="wrapper">
+      <Switch>
+        <Route exact path="/signin" component={Auth} />
+        <Route exact path="/" component={Home} />
+      </Switch>
     </div>
   );
 };
