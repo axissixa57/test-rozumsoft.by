@@ -3,8 +3,14 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+
+interface Props {
+  coodrs: number[],
+  name: string,
+  setLocationData: any,
+  item: any
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,20 +24,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const CardItem = () => {
+const CardItem: React.FunctionComponent<Props> = ({item, coodrs, name, setLocationData}) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} onClick={setLocationData.bind(Card, item)}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {name}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          {/* <Typography variant="body2" color="textSecondary" component="p">
             Lizards are a widespread group of squamate reptiles, with over 6,000
             species, ranging across all continents except Antarctica
-          </Typography>
+          </Typography> */}
         </CardContent>
       </CardActionArea>
     </Card>

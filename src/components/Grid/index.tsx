@@ -4,7 +4,7 @@ import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 import { Sidebar } from "../";
 
-export default function FullWidthGrid() {
+const YandexMap = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={8}>
@@ -37,4 +37,6 @@ export default function FullWidthGrid() {
       </Grid>
     </Grid>
   );
-}
+};
+
+export default YandexMap;

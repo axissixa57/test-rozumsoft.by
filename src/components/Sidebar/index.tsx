@@ -25,13 +25,7 @@ const Sidebar = () => {
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-      </GridList>
+      <GridList cellHeight={200} spacing={1} className={classes.gridList}></GridList>
     </div>
   );
 };

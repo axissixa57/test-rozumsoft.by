@@ -1,21 +1,13 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
+import React, { useState, useEffect } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 
 import { CardItem } from "./components";
-import { Hidden } from "@material-ui/core";
+import { any } from "prop-types";
+import { locationActions } from "./redux/actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,8 +21,9 @@ const useStyles = makeStyles(theme => ({
   //   },
   paper: {
     margin: theme.spacing(1, 1),
-    height: '100%',
-    overflow: 'auto',
+    padding: theme.spacing(0, 1),
+    height: "100%",
+    overflow: "auto"
     // display: "flex",
     // flexDirection: "column",
     // alignItems: "center"
@@ -47,11 +40,11 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2)
   },
   sidebar: {
-    height: 'calc(100% - 16px)',
+    height: "calc(100% - 16px)"
   }
 }));
 
-export default function SignInSide() {
+const App = ({ items, currentItem, setLocationData }) => {
   const classes = useStyles();
 
   return (
@@ -68,17 +61,16 @@ export default function SignInSide() {
           <Map
             width="100wh"
             height="100vh"
-            defaultState={{
-              center: [55.75, 37.57],
-              zoom: 9,
+            state={{
+              center: currentItem.coodrs,
+              zoom: 11,
               controls: ["zoomControl", "fullscreenControl"]
             }}
           >
             <Placemark
-              defaultGeometry={[55.75, 37.57]}
+              geometry={currentItem.coodrs}
               properties={{
-                balloonContentBody:
-                  "This is balloon loaded by the Yandex.Maps API module system"
+                balloonContentBody: currentItem.name
               }}
             />
           </Map>
@@ -86,85 +78,25 @@ export default function SignInSide() {
       </Grid>
       <Grid item sm={12} md={4} className={classes.sidebar}>
         <div className={classes.paper}>
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-
-          {/* <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
+          {items.map((item, i) => (
+            <CardItem
+              key={i}
+              item={item}
+              coodrs={item.coodrs}
+              name={item.name}
+              setLocationData={setLocationData}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form> */}
+          ))}
         </div>
       </Grid>
     </Grid>
   );
-}
+};
+
+export default connect(
+  ({ locations }) => ({
+    items: locations.items,
+    currentItem: locations.currentItem
+  }),
+  locationActions
+)(App);
