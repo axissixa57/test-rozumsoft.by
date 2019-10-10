@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 
 import { CardItem } from "./components";
-import { any } from "prop-types";
 import { locationActions } from "./redux/actions";
+import { getLocations } from "./redux/reselects/locations";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,8 +44,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const App = ({ items, currentItem, setLocationData }) => {
+const App = ({ items, currentItem, setCurrentItem, fetchLocationData }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      fetchLocationData();
+    }, 3000);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -84,7 +94,7 @@ const App = ({ items, currentItem, setLocationData }) => {
               item={item}
               coodrs={item.coodrs}
               name={item.name}
-              setLocationData={setLocationData}
+              setCurrentItem={setCurrentItem}
             />
           ))}
         </div>
@@ -95,7 +105,7 @@ const App = ({ items, currentItem, setLocationData }) => {
 
 export default connect(
   ({ locations }) => ({
-    items: locations.items,
+    items: getLocations(locations.items),
     currentItem: locations.currentItem
   }),
   locationActions

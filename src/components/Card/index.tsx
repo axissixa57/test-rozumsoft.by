@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 interface Props {
   coodrs: number[],
   name: string,
-  setLocationData: any,
+  setCurrentItem: any,
   item: any
 }
 
@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const CardItem: React.FunctionComponent<Props> = ({item, coodrs, name, setLocationData}) => {
+const CardItem: React.FunctionComponent<Props> = ({item, coodrs, name, setCurrentItem}) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card} onClick={setLocationData.bind(Card, item)}>
+    <Card className={classes.card} onClick={setCurrentItem.bind(Card, item)}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
