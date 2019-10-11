@@ -13,14 +13,11 @@ const LoginFormContainer = withFormik({
   }),
   validate: values => {
     let errors = {};
-
     validateForm({ values, errors });
-
     return errors;
   },
   handleSubmit: async (values, { setSubmitting, props }) => {
     const { fetchUserLogin, history }: any = props;
-
     const data = await fetchUserLogin(values);
 
     if(data.status === "success") {
@@ -29,7 +26,7 @@ const LoginFormContainer = withFormik({
 
     setSubmitting(false);
   },
-  displayName: "LoginForm"
+  displayName: "LoginForm",
 })(LoginForm);
 
 export default connect(

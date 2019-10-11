@@ -4,8 +4,8 @@ import user from "./user";
 import locations from "./locations";
 
 export const rootReducer = combineReducers({
+  locations,
   user,
-  locations
 });
 
 export type AppState = ReturnType<typeof rootReducer>

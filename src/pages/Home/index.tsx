@@ -102,7 +102,7 @@ const Home = ({
       </Grid>
       <Grid item sm={12} md={4} className={classes.sidebar}>
         <div className={classes.paper}>
-          {items.map((item: Location, i) => (
+          {items.map((item: Location, i: number) => (
             <CardItem
               key={i}
               item={item}
