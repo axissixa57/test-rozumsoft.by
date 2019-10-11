@@ -5,11 +5,12 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
+import { Location, LocationActionTypes } from "../../redux/types/locations";
+
 interface Props {
-  coodrs: number[],
+  item: Location,
   name: string,
-  setCurrentItem: any,
-  item: any
+  setCurrentItem: (data: Location) => LocationActionTypes
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const CardItem: React.FunctionComponent<Props> = ({item, coodrs, name, setCurrentItem}) => {
+const CardItem = ({item, name, setCurrentItem}: Props) => {
   const classes = useStyles();
 
   return (
@@ -34,10 +35,6 @@ const CardItem: React.FunctionComponent<Props> = ({item, coodrs, name, setCurren
           <Typography gutterBottom variant="h5" component="h2">
             {name}
           </Typography>
-          {/* <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography> */}
         </CardContent>
       </CardActionArea>
     </Card>

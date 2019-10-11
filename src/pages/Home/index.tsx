@@ -3,17 +3,18 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
+import { Location, LocationActionTypes } from "../../redux/types/locations";
 import { CardItem } from "../../components";
 import { locationActions } from "../../redux/actions";
-import { getLocations } from "../../redux/reselects/locations";
+import { AppState } from "../../redux/reducers";
 
 interface Props {
-  items: any[],
-  currentItem: any,
-  setCurrentItem: any,
-  fetchLocationData: any
+  items: Location[],
+  currentItem: Location,
+  setCurrentItem: (data: Location) => LocationActionTypes,
+  fetchLocationData: () => void,
 }
 
 const useStyles = makeStyles(theme => ({
@@ -51,12 +52,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Home: React.FunctionComponent<Props> = ({ items, currentItem, setCurrentItem, fetchLocationData }) => {
+const Home = ({
+  currentItem,
+  setCurrentItem,
+  fetchLocationData
+}: Props) => {
   const classes = useStyles();
+  const items = useSelector((state: AppState) => state.locations.items);
 
   useEffect(() => {
     fetchLocationData();
-    
+
     const id = setInterval(() => {
       fetchLocationData();
     }, 3000);
@@ -97,11 +103,10 @@ const Home: React.FunctionComponent<Props> = ({ items, currentItem, setCurrentIt
       </Grid>
       <Grid item sm={12} md={4} className={classes.sidebar}>
         <div className={classes.paper}>
-          {items.map((item, i) => (
+          {items.map((item: Location, i) => (
             <CardItem
               key={i}
               item={item}
-              coodrs={item.coodrs}
               name={item.name}
               setCurrentItem={setCurrentItem}
             />
@@ -112,9 +117,8 @@ const Home: React.FunctionComponent<Props> = ({ items, currentItem, setCurrentIt
   );
 };
 
-export default connect<any>(
-  (state:any) => ({
-    items: getLocations(state.locations.items),
+export default connect(
+  (state: AppState) => ({
     currentItem: state.locations.currentItem
   }),
   locationActions
