@@ -3,16 +3,24 @@ import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
 
 import { Auth, Home } from "./pages";
+import { AppState } from "./redux/reducers";
 
-const App = () => {
+interface Props {
+  isAuth: boolean
+}
+
+const App = ({isAuth}: Props) => {
   return (
     <div className="wrapper">
       <Switch>
         <Route exact path="/signin" component={Auth} />
-        <Route exact path="/" component={Home} />
+        <Route
+          path="/"
+          render={() => (isAuth ? <Home /> : <Redirect to="/signin" />)}
+        />
       </Switch>
     </div>
   );
 };
 
-export default App;
+export default connect((state: AppState) => ({ isAuth: state.user.isAuth }))(App);;

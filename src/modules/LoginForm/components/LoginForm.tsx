@@ -10,6 +10,18 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import validateField from '../../../utils/validateField';
+
+interface Props {
+  values: any,
+  touched: any,
+  errors: any,
+  handleChange: any,
+  handleBlur: any,
+  handleSubmit: any,
+  isSubmitting: any,
+}
+
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
@@ -35,7 +47,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function LoginForm() {
+export default function LoginForm({
+  values,
+  touched,
+  errors,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isSubmitting
+}: Props) {
   const classes = useStyles();
 
   return (
@@ -48,17 +68,21 @@ export default function LoginForm() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label={!touched.email ? "Email Address" : errors.email}
             name="email"
             autoComplete="email"
             autoFocus
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={validateField("email", touched, errors)}
           />
           <TextField
             variant="outlined"
@@ -66,20 +90,21 @@ export default function LoginForm() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label={!touched.password ? "Password" : errors.password}
             type="password"
             id="password"
             autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={validateField("password", touched, errors)}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
+            disabled={isSubmitting}
             className={classes.submit}
           >
             Sign In

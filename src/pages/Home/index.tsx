@@ -11,7 +11,6 @@ import { locationActions } from "../../redux/actions";
 import { AppState } from "../../redux/reducers";
 
 interface Props {
-  items: Location[],
   currentItem: Location,
   setCurrentItem: (data: Location) => LocationActionTypes,
   fetchLocationData: () => void,
