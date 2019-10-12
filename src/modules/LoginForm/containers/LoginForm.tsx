@@ -17,16 +17,17 @@ const LoginFormContainer = withFormik({
     return errors;
   },
   handleSubmit: async (values, { setSubmitting, props }) => {
-    const { fetchUserLogin, history }: any = props;
+    const {fetchUserLogin, history}: any = props;
+
     const data = await fetchUserLogin(values);
 
-    if(data.status === "success") {
+    if (data.status === "success") {
       history.push("/");
     }
 
     setSubmitting(false);
   },
-  displayName: "LoginForm",
+  displayName: "LoginForm"
 })(LoginForm);
 
 export default connect(

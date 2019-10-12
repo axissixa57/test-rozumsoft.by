@@ -1,6 +1,5 @@
 import React, { SyntheticEvent } from "react";
 import clsx from "clsx";
-import Button from "@material-ui/core/Button";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
@@ -18,6 +17,18 @@ const variantIcon = {
   error: ErrorIcon,
   info: InfoIcon
 };
+
+export interface Props {
+  className?: string;
+  message?: string;
+  onClose?: () => void;
+  variant: keyof typeof variantIcon;
+}
+
+export interface Props1 {
+  status: string;
+  message: string;
+}
 
 const useStyles1 = makeStyles((theme: Theme) => ({
   success: {
@@ -44,18 +55,6 @@ const useStyles1 = makeStyles((theme: Theme) => ({
     alignItems: "center"
   }
 }));
-
-export interface Props {
-  className?: string;
-  message?: string;
-  onClose?: () => void;
-  variant: keyof typeof variantIcon;
-}
-
-export interface Props1 {
-  status: string;
-  message: string;
-}
 
 const MySnackbarContentWrapper = (props: Props) => {
   const classes = useStyles1();
@@ -87,14 +86,7 @@ const MySnackbarContentWrapper = (props: Props) => {
   );
 }
 
-const useStyles2 = makeStyles((theme: Theme) => ({
-  margin: {
-    margin: theme.spacing(1)
-  }
-}));
-
 export default function CustomizedSnackbar({status, message}: Props1) {
-  const classes = useStyles2();
   const [open, setOpen] = React.useState(true);
 
   const handleClose = (event?: SyntheticEvent, reason?: string) => {

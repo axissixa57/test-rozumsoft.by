@@ -10,14 +10,12 @@ const actions = {
     type: SET_QUERY_DATA,
     payload: data
   }),
-  fetchUserLogin: (postData: { email: string; password: string }) => async (
-    dispatch: (arg: any) => void
-  ) => {
+  fetchUserLogin: (postData: { email: string; password: string }) => async (dispatch: ((arg: any ) => UserActionTypes)) => {
     try {
       let response = await usersApi.signIn(postData);
 
       if(response.status === "success") {
-        response = <{status: string, message: string, user: User}>response
+        response = response as {status: string, message: string, user: User};
         window.localStorage["token"] = response.user.token;
 
         dispatch(actions.setUserData(response.user))

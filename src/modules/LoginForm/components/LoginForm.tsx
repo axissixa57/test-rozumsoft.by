@@ -7,20 +7,20 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Snackbar } from "../../../components";
 import validateField from "../../../utils/validateField";
 import { AppState } from "../../../redux/reducers";
 
 interface Props {
-  values: any,
-  touched: any,
-  errors: any,
-  handleChange: any,
-  handleBlur: any,
-  handleSubmit: any,
-  isSubmitting: any,
+  values: { email: string; password: string };
+  touched: { [field: string]: boolean | undefined };
+  errors: { [field: string]: string | undefined };
+  handleChange: (e: React.ChangeEvent<any>) => void;
+  handleBlur: (e: any) => void;
+  handleSubmit: (e: React.FormEvent<any>) => void;
+  isSubmitting: boolean;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -55,7 +55,7 @@ const LoginForm = ({
   handleChange,
   handleBlur,
   handleSubmit,
-  isSubmitting,
+  isSubmitting
 }: Props) => {
   const classes = useStyles();
   const queryResult = useSelector((state: AppState) => state.user.queryResult);
@@ -113,9 +113,11 @@ const LoginForm = ({
           </Button>
         </form>
       </div>
-      {queryResult.status ? <Snackbar status={queryResult.status} message={queryResult.message} /> : null}
+      {queryResult.status ? (
+        <Snackbar status={queryResult.status} message={queryResult.message} />
+      ) : null}
     </Container>
   );
-}
+};
 
 export default LoginForm;
