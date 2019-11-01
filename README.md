@@ -1,6 +1,9 @@
-tech@rozumsoft.by
+# tech@rozumsoft.by
 
-his project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Deployed on gh-pages: [test-rozumsoft.by](https://axissixa57.github.io/rozumsoft.by/)<br>
+Authorization: Email - administrator@gmail.com / Password - 1234567<br>
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
